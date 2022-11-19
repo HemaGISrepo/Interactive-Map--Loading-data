@@ -1,0 +1,17 @@
+
+# Load the data
+crimes = pd.read_csv("../input/geospatial-learn-course-data/crimes-in-boston/crimes-in-boston/crime.csv", encoding='latin-1')
+
+# Drop rows with missing locations
+crimes.dropna(subset=['Lat', 'Long', 'DISTRICT'], inplace=True)
+
+# Focus on major crimes in 2018
+crimes = crimes[crimes.OFFENSE_CODE_GROUP.isin([
+    'Larceny', 'Auto Theft', 'Robbery', 'Larceny From Motor Vehicle', 'Residential Burglary',
+    'Simple Assault', 'Harassment', 'Ballistics', 'Aggravated Assault', 'Other Burglary', 
+    'Arson', 'Commercial Burglary', 'HOME INVASION', 'Homicide', 'Criminal Harassment', 
+    'Manslaughter'])]
+crimes = crimes[crimes.YEAR>=2018]
+
+# Print the first five rows of the table
+crimes.head()
